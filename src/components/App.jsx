@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { fetchContacts } from 'redux/operation';
 import { selectFilter } from 'redux/selectors';
 
+// ?..>?
 export const App = () => {
   const dispatch = useDispatch();
   const search = useSelector(selectFilter);
