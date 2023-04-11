@@ -1,43 +1,55 @@
-import ContactForm from './Form';
-import ContactList from './ContactList';
-import Filter from './Filter';
-import { Container, PhoneBook, Title } from '../components/App.styled';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchContacts } from 'redux/operation';
-import { selectFilter } from 'redux/selectors';
+import { useEffect, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
+import { useDispatch } from 'react-redux';
+import { useAuth } from '../hooks/useAuth';
+import { refreshUser } from 'redux/auth/operations';
 
-// ?..>?
-// ?..>?
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const PhoneBookPage = lazy(() => import('../pages/PhoneBook'));
+
 export const App = () => {
   const dispatch = useDispatch();
-  const search = useSelector(selectFilter);
-
+  const { isRefreshing } = useAuth();
   useEffect(() => {
-    dispatch(fetchContacts(search));
-  }, [dispatch, search]);
+    dispatch(refreshUser());
+  }, [dispatch]);
 
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 36,
-        color: '#010101',
-      }}
-    >
-      <Container>
-        <PhoneBook>Phonebook</PhoneBook>
-        <ContactForm />
-        <Title>Contacts</Title>
-        <Filter />
-        <ContactList />
-        <ToastContainer autoClose={2500} limit={3} />
-      </Container>
-    </div>
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/phonebook"
+              component={<RegisterPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute
+              redirectTo="/phonebook"
+              component={<LoginPage />}
+            />
+          }
+        />
+        <Route
+          path="/tasks"
+          element={
+            <PrivateRoute redirectTo="/login" component={<PhoneBookPage />} />
+          }
+        />
+      </Route>
+    </Routes>
   );
 };
