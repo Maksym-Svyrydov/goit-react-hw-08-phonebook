@@ -1,13 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { register, logIn, logOut, refreshUser } from './operations';
 
-// const handleUser = state => {
-//   state.user = action.payload.user;
-// };
-// const fetchToken = state => {
-//   state.token = action.payload.token;
-// };
-
 const initialState = {
   user: { name: null, email: null },
   token: null,

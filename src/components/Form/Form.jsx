@@ -9,6 +9,7 @@ import { addContacts } from '../../redux/operation';
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContactsList);
+
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.target;
