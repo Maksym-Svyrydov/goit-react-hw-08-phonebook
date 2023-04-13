@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { selectContactsList } from 'redux/selectors';
@@ -14,10 +13,10 @@ export const ContactForm = () => {
     e.preventDefault();
     const form = e.target;
     const name = form.elements.name.value;
-    const phone = form.elements.number.value;
-    const newContatact = { id: nanoid(), name: name, phone: phone };
-    if (contacts.find(el => el.phone === phone)) {
-      return toast.error(`${phone} is already in contacts.`, {
+    const number = form.elements.number.value;
+    const newContatact = { name: name, number: number };
+    if (contacts.find(el => el.number === number)) {
+      return toast.error(`${number} is already in contacts.`, {
         position: 'top-right',
         autoClose: 1500,
         hideProgressBar: false,
