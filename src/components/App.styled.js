@@ -15,11 +15,12 @@ export const PhoneBook = styled.h1`
   padding: 0px;
   letter-spacing: 2 px;
   color: rgba(50, 57, 65, 1);
-  @media screen and (max-width: 1023px) {
-    font-size: 32px;
+  font-size: 26px;
+  @media screen and (max-width: 1024px) {
+    font-size: 20px;
   }
   @media screen and (max-width: 767px) {
-    font-size: 28px;
+    font-size: 18px;
   }
 `;
 export const Title = styled.h2`

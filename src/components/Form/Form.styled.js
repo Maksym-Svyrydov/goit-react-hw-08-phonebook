@@ -13,10 +13,19 @@ export const Form = styled.form`
   letter-spacing: 1 px;
   margin-bottom: 10px;
 `;
-export const InputHeader = styled.h1`
-  font-weigh: 400;
-  font-size: 20px;
-`;
+// export const InputHeader = styled.h1`
+//   font-weigh: 400;
+//   font-size: 18px;
+//   @media screen and (max-width: 1024px) {
+//     font-size: 16px;
+//   }
+//   @media screen and (max-width: 767px) {
+//     font-size: 12px;
+//   }
+//   @media screen and (max-width: 567px) {
+//     font-size: 10px;
+//   }
+// `;
 export const InputName = styled.input`
   width: 70%;
   height: 12%;
